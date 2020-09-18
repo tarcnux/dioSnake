@@ -2,14 +2,12 @@ const canvas = document.querySelector('#snake');
 const context = canvas.getContext('2d');
 const box = 32;
 const snake = [];
-let direction = 'right';
 
 //inicializa a cobrinha com 1 quadrado
 snake[0] = {
     x: 8 * box,
     y: 8 * box
 }
-
 
 function criarCenario() {
     context.fillStyle = 'lightgreen';
@@ -37,7 +35,19 @@ function update(evento) {
     if(evento.keyCode === 40 && direction !== 'up') direction = 'down';
 }
 
-function iniciarJogo() {
+let comida = {
+    x: Math.floor(Math.random() * 15 + 1) * box,
+    y: Math.floor(Math.random() * 15 + 1) * box
+}
+
+function desenharComida() {
+    context.fillStyle = 'red';
+    context.fillRect(comida.x, comida.y, box, box);
+}
+
+let direction = 'right';
+
+function desenharJogo() {
     //Ao chegar no fim, iniciar do outro lado
     if(snake[0].x > 15 * box && direction === 'right') snake[0].x = 0;
     if(snake[0].x < 0 && direction === 'left') snake[0].x = 16 * box;
@@ -45,9 +55,10 @@ function iniciarJogo() {
     if(snake[0].y < 0 && direction === 'up') snake[0].y = 16 * box;
     
     criarCenario();
-    criarCobrinha();    
+    criarCobrinha();
+    desenharComida();
 
-    //Ponto de partida
+    //Coordenadas das cabeça da cobra
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
 
@@ -57,16 +68,17 @@ function iniciarJogo() {
     if(direction === 'up') snakeY -= box;
     if(direction === 'down') snakeY += box;
     
-    //Remove o último elemento
+    //Remove o último elemento da calda da cobra (do vetor)
     snake.pop();
 
+    //Criação da nova cabeça para ser adicionada à cobra (ao vetor)
     const newHead = {
         x: snakeX,
         y: snakeY
     }
-    //Adiciona a nova cabeça
+    //Adiciona a nova cabeça ao início da cobra (do vetor)
     snake.unshift(newHead);
 
 }
 
-let jogo = setInterval(iniciarJogo, 100);
+let jogo = setInterval(desenharJogo, 100);
