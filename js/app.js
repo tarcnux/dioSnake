@@ -2,7 +2,7 @@ const canvas = document.querySelector('#snake');
 const context = canvas.getContext('2d');
 const box = 32;
 const snake = [];
-const direction = 'right';
+let direction = 'right';
 
 //inicializa a cobrinha com 1 quadrado
 snake[0] = {
@@ -23,7 +23,22 @@ function criarCobrinha() {
     }
 }
 
+document.addEventListener('keydown', update);
+
+function update(evento) {
+    //https://keycode.info/
+    //37 seta para a esquerda - Ir para a direção da esquerda
+    if(evento.keyCode === 37 && direction !== 'right') direction = 'left';
+    //38 seta para cima - Ir para a direção de cima
+    if(evento.keyCode === 38 && direction !== 'down') direction = 'up';
+    //39 seta para a direita - Ir para a direção da direita
+    if(evento.keyCode === 39 && direction !== 'left') direction = 'right';
+    //40 seta para baixo - Ir para a direção debaixo
+    if(evento.keyCode === 40 && direction !== 'up') direction = 'down';
+}
+
 function iniciarJogo() {
+    
     criarCenario();
     criarCobrinha();    
 
@@ -34,8 +49,8 @@ function iniciarJogo() {
     //Movimento adiciona uma nova caixa nas direções
     if(direction === 'right') snakeX += box;
     if(direction === 'left') snakeX -= box;
-    if(direction === 'up') snakeY += box;
-    if(direction === 'down') snakeY -= box;
+    if(direction === 'up') snakeY -= box;
+    if(direction === 'down') snakeY += box;
     
     //Remove o último elemento
     snake.pop();
