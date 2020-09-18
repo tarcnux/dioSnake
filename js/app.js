@@ -1,5 +1,7 @@
 const canvas = document.querySelector('#snake');
 const context = canvas.getContext('2d');
+const tamanhoSpan = document.querySelector('#tamanho');
+let tamanho = 1;
 const box = 32;
 const snake = [];
 
@@ -83,6 +85,8 @@ function desenharJogo() {
         snake.pop();
     } else {
         //Gera uma nova comida em outra posição aleatória
+        //Ao não remover um elemento do vetor, o tamanho aumenta      
+        tamanhoSpan.textContent = ++tamanho;
         comida.x = Math.floor(Math.random() * 15 + 1) * box;
         comida.y = Math.floor(Math.random() * 15 + 1) * box;
     }    
