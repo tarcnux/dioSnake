@@ -1,7 +1,10 @@
-#snake {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -256px;
-    margin-left: -256px;
+body {
+    height: 95vh;
+    width: 95vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
+
+header,footer{text-align: center;}
