@@ -68,8 +68,16 @@ function desenharJogo() {
     if(direction === 'up') snakeY -= box;
     if(direction === 'down') snakeY += box;
     
-    //Remove o último elemento da calda da cobra (do vetor)
-    snake.pop();
+    //Fazer a cobrinha comer a comida e crescer
+    if(snakeX !== comida.x || snakeY !== comida.y) {
+        //Remove o último elemento da calda da cobra (do vetor)
+        snake.pop();
+    } else {
+        //Gera uma nova comida em outra posição aleatória
+        comida.x = Math.floor(Math.random() * 15 + 1) * box;
+        comida.y = Math.floor(Math.random() * 15 + 1) * box;
+    }    
+    
 
     //Criação da nova cabeça para ser adicionada à cobra (ao vetor)
     const newHead = {
